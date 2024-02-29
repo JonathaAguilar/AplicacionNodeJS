@@ -2,7 +2,7 @@ import express  from 'express';
 import  json  from 'body-parser';
 
 export const router = express.Router();
-
+export default {router}
 // Declarar primer ruta por omisión
 
 router.get('/', (req,res)=>{
@@ -17,21 +17,33 @@ router.get('/tabla',(req,res)=>{
     res.render('tabla',params);
 })
 
-router.post('/tabla', (req,res)=>{
-    const numero = req.body.numero;
-    if(req.body.limpiar){
-        res.render('tabla',{ numero:null });
-    } else {
-        res.render('tabla',{numero});
-    }
-})
-
-/*router.post('/tabla',(req,res)=>{
+router.post('/tabla',(req,res)=>{
     // Paramétros
     const params = {
         numero:req.body.numero
     }
     res.render('tabla',params);
-})*/
+})
 
-export default {router}
+router.get("/cotizacion", (req, res) => {
+    const params = {
+      valor: req.query.valor,
+      pInicial: req.query.pInicial,
+      plazos: req.query.plazos,
+    };
+    res.render("cotizacion", params);
+  });
+  
+  router.post("/cotizacion", (req, res) => {
+    const params = {
+      valor: req.body.valor,
+      pInicial: req.body.pInicial,
+      plazos: req.body.plazos,
+    };
+    res.render("cotizacion", params);
+  });
+  
+
+
+
+

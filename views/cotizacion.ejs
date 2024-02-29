@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Practica - Cotizacion</title>
+  </head>
+  <style>
+    button a:link,
+    button a:visited,
+    button a:hover,
+    button a:active {
+      text-decoration: none;
+      color: black;
+    }
+    .formulario{
+        display: flex;
+        background-color: #f2f2f2;
+        border: solid 1px black;
+        padding: 10px;
+        border-radius: 5px;
+        width: min(500px, 90%);
+        margin: 20px auto;
+        flex-direction: column;
+        align-items: left;
+        justify-content: center;
+        gap: 0.8rem;
+    }
+    .buttons-container{
+        display: flex;
+        justify-content: space-between;
+        width: 50%;
+        margin: 0 auto;
+    }
+    .res-container{
+        background-color: #f2f2f2;
+        width: min(500px, 90%);
+        border: solid 1px black;
+        padding: 10px;
+        border-radius: 5px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 0.8rem;
+        margin: 20px auto;
+    }
+  </style>
+  <body>
+    <%-include('partials/header.ejs')%>
+    <%-include('partials/nav.ejs')%>
+    <section>
+      <form class="formulario" action="/cotizacion" method="post">
+        <div class="input-container">
+            <label for="">Valor de Automovil</label>
+            <input type="number" name="valor" id="valor" required value="<%=valor%>" />
+        </div>
+        <div>
+            <label for="">Porcentaje de pago inicial</label>
+            <input type="number" name="pInicial" id="pInicial"  required value="<%=pInicial%>"/>
+        </div>
+        <div>
+            <label for="">Plazo en meses</label>
+            <select class="" name="plazos" id="plazos"  required value="<%=plazos%>">
+              <option value="12">12 meses</option>
+              <option value="24">24 meses</option>
+              <option value="36">36 meses</option>
+              <option value="48">48 meses</option>
+              <option value="60">60 meses</option>
+            </select>
+        </div>
+        <div class="buttons-container">
+            <button type="submit">Calcular</button>
+            <button><a href="/cotizacion">Limpiar</a></button>
+
+        </div>
+      </form>
+      <div class="res-container">
+        <h3>Resultado de la cotizacion</h3>
+            <%
+            if(valor){
+                pInicial = valor * (pInicial / 100);
+                let cuota = (valor - pInicial) / plazos;
+                cuota = cuota.toFixed(2);
+                %>
+                <h5>Pago inicial: $<%=pInicial%> </h5>
+                <h5>Total a financiar:  $<%=valor%> </h5>
+                <h5>Plazos a meses: <%=plazos%> meses</h5>
+                <h5>El valor de la cuota mensual es:  $<%=cuota%> </h5>
+                <%
+          }
+        %>        
+        
+      </div>
+    </section>
+    <%-include('partials/footer.ejs')%>
+  </body>
+</html>
