@@ -1,9 +1,9 @@
 import mysql from 'mysql2'
 
 var conexion = mysql.createConnection({
-    host: "localhost",
+    host: "3.142.67.241",
     user: "root",
-    password: "",
+    password: "cisco",
     database: "sistemas"
 });
 
