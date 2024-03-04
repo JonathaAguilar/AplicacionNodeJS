@@ -1,14 +1,14 @@
 import { resolve } from "path";
 import conexion from "./conexion.js";
-import { rejects } from "assert";
+
 
 var alumnosoBd = {}
 alumnosoBd.insertar = function insertar(alumno) {
 
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve, rejects) => {
 
         //Consulta
-        let sqlConsulta = `Insert into alumnos set ?`;
+        let sqlConsulta = `INSERT INTO alumnos SET ?`;
         conexion.query(sqlConsulta, alumno, function(err, res) {
 
         if(err) {
@@ -28,7 +28,7 @@ alumnosoBd.insertar = function insertar(alumno) {
 
 alumnosoBd.mostrarTodos = function mostrarTodos(){
     return new Promise ((resolve,rejects)=>{
-        let sqlConsulta = "select * from alumnos"
+        let sqlConsulta = "SELECT * FROM alumnos";
        conexion.query(sqlConsulta,null,function(err,res){
             if(err){
                 console.log("surgio un error", err);

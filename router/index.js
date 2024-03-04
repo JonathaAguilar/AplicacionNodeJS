@@ -52,18 +52,17 @@ router.get('/alumnos', async(req,res)=>{
     res.render('alumnos', {reg:rows});
 });
 
+let params;
 router.post('/alumnos', async(req,res)=>{
     try{
-        const params={
-            matricula:req.body.matricula,
-            nombre:req.body.nombre,
-            domicilio:req.body.domicilio,
-            sexo:req.body.sexo,
-            especialidad:req.body.especialidad
-        }
-
-    const resultados = await alumnosoBd.insertar(params);
-
+       params={
+        matricula:req.body.matricula,
+        nombre:req.body.nombre,
+        domicilio:req.body.domicilio,
+        sexo:req.body.sexo,
+        especialidad:req.body.especialidad
+      }
+      await alumnosoBd.insertar(params);
     }catch(error){
         console.error(error);
         res.status(400).send('sucedio un error:' + error);
